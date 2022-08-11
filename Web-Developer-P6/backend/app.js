@@ -1,13 +1,14 @@
 const express = require('express');
+const bodyparser = require('body-parser');
 
 const app = express();
 app.use(express.json());
 const mongoose = require('mongoose');
 
-const UserModel = require('./models/User');
+const UserModel = require('./routes/User');
 const SauceModel = require('./models/Sauce');
 
-const userRoutes = require('./routes/user');
+const userRoutes = require('./routes/User');
 
 mongoose.connect('mongodb+srv://hot_takes:zYVuGoDWOaP7ZbRk@cluster0.grshl.mongodb.net/hot_takes?retryWrites=true&w=majority',
   { useNewUrlParser: true,
@@ -26,8 +27,5 @@ app.use((req, res, next) => {
 
 app.use('/api/auth', userRoutes);
 
-// app.use((req, res) => {
-//    res.json({ message: 'Votre requête a bien été reçue !' }); 
-// });
 
 module.exports = app;
