@@ -4,11 +4,13 @@ const bodyparser = require('body-parser');
 const app = express();
 app.use(express.json());
 const mongoose = require('mongoose');
+const path = require('path');
 
 const UserModel = require('./routes/User');
-const SauceModel = require('./models/Sauce');
+//const SauceModel = require('./routes/Sauces');
 
 const userRoutes = require('./routes/User');
+//const sauceRoutes = require('./routes/Sauces');
 
 mongoose.connect('mongodb+srv://hot_takes:zYVuGoDWOaP7ZbRk@cluster0.grshl.mongodb.net/hot_takes?retryWrites=true&w=majority',
   { useNewUrlParser: true,
@@ -26,6 +28,8 @@ app.use((req, res, next) => {
 });
 
 app.use('/api/auth', userRoutes);
-
+//app.post('/api/sauces')
+//app.use('/api/sauces',sauceRoutes);
+//app.use('/images', express.static(path.join('images')));
 
 module.exports = app;

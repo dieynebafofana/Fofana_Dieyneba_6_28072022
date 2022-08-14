@@ -3,6 +3,8 @@ const jsonWt = require('jsonwebtoken');
 
 const User = require('../models/User');
 
+
+
 exports.signup = (req, res, next) => {
     console.log(req.body)
     bcrypt.hash(req.body.password, 10)
@@ -20,11 +22,11 @@ exports.signup = (req, res, next) => {
 
 exports.login = (req, res, next) => {
     User.findOne({ email: req.body.email })
-        .then(User => {
-            if (!User) {
+        .then(user => {
+            if (!user) {
                 return res.status(403).json({ message: 'Paire login/mot de passe incorrecte'});
             }
-            bcrypt.compare(req.body.password, User.password)
+            bcrypt.compare(req.body.password, user.password)
                 .then(valid => {
                     if (!valid) {
                         return res.status(403).json({ message: 'Paire login/mot de passe incorrecte' });
@@ -42,3 +44,19 @@ exports.login = (req, res, next) => {
         })
         .catch(error => res.status(403).json({ error }));
  };
+
+ exports.createImage = (req, res, next) => {
+    const imageObject = JSON.parse(req.body.thing);
+    delete imageObject._id;
+    delete imageObject._userId;
+    const userImage = new userImage({
+        ...imageObject,
+        userId: req.auth.userId,
+        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+    });
+  
+    userImage.save()
+    .then(() => { res.status(201).json({message: 'Objet enregistré !'})})
+    .catch(error => { res.status(400).json( { error })})
+ };
+  
