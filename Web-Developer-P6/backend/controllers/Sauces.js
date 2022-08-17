@@ -1,4 +1,4 @@
-const sauce = require('../models/Sauces')
+//const sauce = require('../models/Sauces')
 
 /*exports.AllSauces = (req, res,next) => {
     sauce.find().then(

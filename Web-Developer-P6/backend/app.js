@@ -5,7 +5,6 @@ const app = express();
 app.use(express.json());
 const mongoose = require('mongoose');
 const path = require('path');
-
 const UserModel = require('./routes/User');
 //const SauceModel = require('./routes/Sauces');
 
@@ -19,7 +18,6 @@ mongoose.connect('mongodb+srv://hot_takes:zYVuGoDWOaP7ZbRk@cluster0.grshl.mongod
   .catch(() => console.log('Connexion à MongoDB échouée !'));
 
 
-
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
@@ -27,9 +25,9 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/api/auth', userRoutes);
+app.use('api/auth', userRoutes);
 //app.post('/api/sauces')
 //app.use('/api/sauces',sauceRoutes);
-//app.use('/images', express.static(path.join('images')));
+app.use('/images', express.static(path.join(__dirname,'images')));
 
 module.exports = app;
