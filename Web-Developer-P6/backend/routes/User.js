@@ -7,9 +7,10 @@ const userCtrl = require('../controllers/User');
 
 const router = express.Router();
 
-router.post('/', auth, userCtrl.signup);
-router.post('/', auth, userCtrl.login);
-//router.post('/',auth, multer, userCtrl.createImage);    
+router.post('/signup',userCtrl.signup);
+router.post('/login',userCtrl.login);
+
+// router.post('/',auth,multer, userCtrl.createImage);    
 
 module.exports = router;
 

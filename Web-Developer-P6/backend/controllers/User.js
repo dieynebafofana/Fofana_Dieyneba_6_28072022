@@ -6,7 +6,7 @@ const User = require('../models/User');
 
 
 exports.signup = (req, res, next) => {
-    console.log(req.body0)
+    console.log(req.body)
     bcrypt.hash(req.body.password, 10)
       .then(hash => {
         const user = new User({
@@ -46,7 +46,7 @@ exports.login = (req, res, next) => {
         .catch(error => res.status(403).json({ error }));
  };
 
- /*exports.createImage = (req, res, next) => {
+ exports.createImage = (req, res, next) => {
     const imageObject = JSON.parse(req.body.thing);
     delete imageObject._id;
     delete imageObject._userId;
@@ -59,5 +59,5 @@ exports.login = (req, res, next) => {
     userImage.save()
     .then(() => { res.status(201).json({message: 'Objet enregistré !'})})
     .catch(error => { res.status(400).json( { error })})
- };*/
+ };
   
