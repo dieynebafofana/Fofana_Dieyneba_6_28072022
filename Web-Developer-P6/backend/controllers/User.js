@@ -57,7 +57,7 @@ exports.login = (req, res, next) => {
     });
   
     userImage.save()
-    .then(() => { res.status(201).json({message: 'Objet enregistré !'})})
+    .then(() => { res.status(201).json({message: 'image enregistrée !'})})
     .catch(error => { res.status(400).json( { error })})
  };
   
