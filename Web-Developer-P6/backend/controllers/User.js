@@ -47,7 +47,7 @@ exports.login = (req, res, next) => {
  };
 
  exports.createImage = (req, res, next) => {
-    const imageObject = JSON.parse(req.body.thing);
+    const imageObject = JSON.parse(req.body.User);
     delete imageObject._id;
     delete imageObject._userId;
     const userImage = new userImage({

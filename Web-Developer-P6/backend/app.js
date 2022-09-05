@@ -6,7 +6,7 @@ app.use(express.json());
 const mongoose = require('mongoose');
 const path = require('path');
 const UserModel = require('./routes/User');
-const SauceModel = require('./routes/Sauces');
+//const SauceModel = require('./routes/Sauces');
 
 const userRoutes = require('./routes/User');
 const sauceRoutes = require('./routes/Sauces');
@@ -26,9 +26,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/api/auth', userRoutes);
-app.use('/api/sauces',sauceRoutes);
-app.use('/api/sauces/:id',sauceRoutes);
-app.delete('/api/sauces/:id',sauceRoutes);
+app.use('/api/sauces', sauceRoutes);
 app.use('/images', express.static(path.join(__dirname,'images')));
 
 
