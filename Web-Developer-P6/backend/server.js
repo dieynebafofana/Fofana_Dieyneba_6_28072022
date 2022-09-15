@@ -1,12 +1,16 @@
-const http = require('http');
-const app = require('./app');
-const cors = require('cors')
+const dotenv = require("dotenv").config();
 
-app.use(cors({
-    origin:'*',
-}))
+const http = require("http");
+const app = require("./app");
+const cors = require("cors");
 
-app.set('port', process.env.PORT || 3000);
+app.use(
+  cors({
+    origin: "*",
+  })
+);
+
+app.set("port", process.env.PORT);
 const server = http.createServer(app);
 
-server.listen(process.env.PORT || 3000);
+server.listen(process.env.PORT);
