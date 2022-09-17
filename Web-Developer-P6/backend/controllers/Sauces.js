@@ -3,11 +3,16 @@ const Sauces = require("../models/Sauces");
 const Sauce = require("../models/Sauces");
 const fs = require("fs");
 
+
+//Affichage des sauces
+
 exports.AllSauces = (req, res, next) => {
   Sauce.find()
     .then((sauces) => res.send(sauces))
     .catch((error) => res.status(403).json({ error }));
 };
+
+//Rajouter une sauce
 
 exports.AddSauce = (req, res, next) => {
   const sauce = JSON.parse(req.body.sauce);
@@ -31,6 +36,8 @@ exports.SauceId = (req, res, next) => {
     .catch((error) => res.status(403).json({ error }));
 };
 
+//Modifier une sauce
+
 exports.ModifySauce = (req, res, next) => {
   const editSauce = req.file
     ? {
@@ -51,22 +58,15 @@ exports.ModifySauce = (req, res, next) => {
       })
       .catch((error) => res.status(403).json({ message: "error sauce" }));
   }
-  //S'il y a une image a modifier / Supprimer l'ancienne image
-  // -Connaitre l'ancienne image?
-  //Supprimer cette image (Plugin NPM FS)
-  //UpdateOne SAuce
 
   Sauce.updateOne({ _id: req.params.id }, { ...editSauce, _id: req.params.id })
     .then(() => res.status(200).json({ message: "sauce modifiée !" }))
     .catch((error) => res.status(403).json({ error }));
 };
 
-exports.deleteSauce = (req, res, next) => {
-  //Supprimer l'image
-  // -Trouver l'image
-  // -Supprimer l'image (fs)
-  // -Delete sauce
+//Supprimer une sauce
 
+exports.deleteSauce = (req, res, next) => {
   Sauce.findOne({ _id: req.params.id })
     .then((imgObjet) => {
       const filename = imgObjet.imageUrl.split("/images/")[1];
@@ -82,6 +82,8 @@ exports.deleteSauce = (req, res, next) => {
       res.status(403).json({ message: "error" });
     });
 };
+
+//Like et dislike
 
 exports.likeSauce = (req, res, next) => {
   const { like, userId } = req.body;

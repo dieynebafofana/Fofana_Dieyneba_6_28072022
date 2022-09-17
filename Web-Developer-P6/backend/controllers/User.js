@@ -1,7 +1,8 @@
 const bcrypt = require("bcrypt");
 const jsonWt = require("jsonwebtoken");
-
 const User = require("../models/User");
+
+//Signup
 
 exports.signup = (req, res, next) => {
   console.log(req.body);
@@ -20,6 +21,8 @@ exports.signup = (req, res, next) => {
     })
     .catch((error) => res.status(403).json({ error }));
 };
+
+//Login
 
 exports.login = (req, res, next) => {
   User.findOne({ email: req.body.email })
@@ -48,18 +51,3 @@ exports.login = (req, res, next) => {
     })
     .catch((error) => res.status(403).json({ error }));
 };
-
-/*exports.createImage = (req, res, next) => {
-    const imageObject = JSON.parse(req.body.User);
-    delete imageObject._id;
-    delete imageObject._userId;
-    const userImage = new userImage({
-        ...imageObject,
-        userId: req.auth.userId,
-        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-    });
-  
-    userImage.save()
-    .then(() => { res.status(201).json({message: 'image enregistrée !'})})
-    .catch(error => { res.status(400).json( { error })})
- };*/
